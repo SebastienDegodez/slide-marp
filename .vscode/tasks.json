@@ -1,0 +1,38 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build HTML from Marp",
+            "type": "shell",
+            "command": "docker run --rm -v $pwd/presentation:/home/marp/app/ -e LANG=$LANG marpteam/marp-cli slide.md --html",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Build PDF from Marp",
+            "type": "shell",
+            "command": "docker run --rm --init -v $pwd/presentation:/home/marp/app/ -e LANG=$LANG -e PUPPETEER_TIMEOUT=0 marpteam/marp-cli slide.md --pdf",
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "Build PPTX from Marp",
+            "type": "shell",
+            "command": "docker run --rm --init -v $pwd/presentation:/home/marp/app/ -e LANG=$LANG -e PUPPETEER_TIMEOUT=0 marpteam/marp-cli slide.md --pptx",
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "Watch Markdown",
+            "type": "shell",
+            "command": "docker run --rm --init -v $pwd/presentation:/home/marp/app/ -e LANG=$LANG -p 8080:8080 -p 37717:37717 marpteam/marp-cli -w slide.md -s -I .",
+            "group": {
+                "kind": "build"
+            }
+        }
+    ]
+}
