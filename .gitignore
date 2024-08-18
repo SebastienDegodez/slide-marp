@@ -1,0 +1,19 @@
+# Ignore build artifacts
+build/
+dist/
+
+# Ignore IDE and editor files
+*.iml
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+
+# Ignore compiled binaries
+*.exe
+*.dll
+*.so
+
+# Ignore backup files
+*.bak
+*.swp
