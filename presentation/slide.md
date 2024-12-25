@@ -17,8 +17,6 @@ paginate: skip
 ![bg opacity:.7](./images/bg.jpg)
 
 ---
-# DEGODEZ Sébastien
-
 <!-- 
 _class:
  - lead
@@ -26,18 +24,25 @@ _class:
 footer: ''
 paginate: skip
 -->
+
 ![bg opacity:.7](./images/bg.jpg)
 
-##### Software Engineer chez AXA en France
+<div id="presentation">  
+   <img src="images/me.png" alt="Photo" />
+   <div>
+      <h1>DEGODEZ Sébastien</h1>
+      <h5>Software Engineer chez AXA en France</h5>
+   </div>
+</div>
 
-<i class="fa-brands fa-twitter"></i> Twitter: 
-<i class="fa-brands fa-linkedin"></i> LinkedIn: 
-<i class="fa-brands fa-github"></i> GitHub: 
+<i class="fa-brands fa-x-twitter"></i> Twitter: seb2goxdev
+<i class="fa-brands fa-linkedin"></i> LinkedIn: SebastienDegodez
+<i class="fa-brands fa-github"></i> GitHub: SebastienDegodez
 
 ---
 <!-- 
 paginate: true
-footer: 'DEGODEZ Sébastien - https://www.linkedin.com/in/sebastien-degodez'
+footer: 'DEGODEZ Sébastien - <i class="fa-brands fa-linkedin"></i> in/sebastien-degodez'
 -->
 ## What?
 
@@ -68,3 +73,18 @@ public class MySlide
   public string Title { private set; get;}
 }
 ```
+
+---
+
+<!-- 
+_class:
+ - lead
+ - invert
+footer: ''
+paginate: skip
+-->
+
+![bg opacity:.7](./images/bg.jpg)
+<div id="end">
+   <img src="images/QR-for-SebastienDegodez.svg" />
+</div>
