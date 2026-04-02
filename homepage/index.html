@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DEGODEZ Sébastien — Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Base ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Marp Gaia (invert) inspired palette */
+      --bg:          #0c2133;
+      --bg-card:     #0e2d47;
+      --bg-card-alt: #112d44;
+      --accent:      #0288d1;
+      --accent-2:    #00b0ff;
+      --text:        #e8f4fd;
+      --text-muted:  #90caf9;
+      --border:      rgba(2, 136, 209, 0.25);
+      --radius:      12px;
+      --font-body:   'Nunito', sans-serif;
+      --font-code:   'Fira Code', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: var(--accent-2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Layout helpers ───────────────────────────────────────── */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ── Hero ─────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      padding: 5rem 1.5rem 4rem;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(2,136,209,0.18) 0%, transparent 60%),
+        url('images/bg.jpg') center/cover no-repeat;
+      opacity: .45;
+      z-index: 0;
+    }
+
+    .hero > * { position: relative; z-index: 1; }
+
+    .hero-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.4rem;
+    }
+
+    .hero-identity {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent);
+      box-shadow: 0 0 24px rgba(2,136,209,0.5);
+    }
+
+    .hero-text h1 {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+    }
+
+    .hero-text .role {
+      font-size: clamp(0.9rem, 2.5vw, 1.15rem);
+      color: var(--text-muted);
+      margin-top: .3rem;
+    }
+
+    .hero-text .company {
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      color: var(--accent-2);
+      font-weight: 600;
+    }
+
+    /* ── Social links ─────────────────────────────────────────── */
+    .social-links {
+      display: flex;
+      gap: .9rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      padding: .45rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(2,136,209,0.1);
+      color: var(--text);
+      font-size: .9rem;
+      font-weight: 600;
+      transition: background .2s, border-color .2s, transform .15s;
+    }
+
+    .social-links a:hover {
+      background: rgba(2,136,209,0.28);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      text-decoration: none;
+    }
+
+    .social-links i { font-size: 1.05rem; color: var(--accent-2); }
+
+    /* ── Pitch ────────────────────────────────────────────────── */
+    .pitch {
+      padding: 3.5rem 1.5rem;
+      text-align: center;
+    }
+
+    .pitch blockquote {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: var(--text);
+      border-left: 4px solid var(--accent);
+      padding: 1rem 1.5rem;
+      background: var(--bg-card);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      text-align: left;
+      font-style: italic;
+    }
+
+    .pitch blockquote strong { color: var(--accent-2); font-style: normal; }
+
+    /* ── Section title ────────────────────────────────────────── */
+    .section-title {
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 2.5rem;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 99px;
+      margin: .5rem auto 0;
+    }
+
+    /* ── Bento grid ───────────────────────────────────────────── */
+    .highlights {
+      padding: 1rem 1.5rem 4rem;
+    }
+
+    .bento {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1.2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 600px) {
+      .bento { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.6rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      transition: border-color .2s, transform .2s, box-shadow .2s;
+    }
+
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(2,136,209,0.18);
+    }
+
+    .card-icon {
+      font-size: 1.8rem;
+      line-height: 1;
+    }
+
+    .card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--accent-2);
+      margin: 0;
+    }
+
+    .card p, .card ul {
+      font-size: .93rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .card ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: .3rem;
+    }
+
+    .card ul li::before {
+      content: '▸ ';
+      color: var(--accent);
+    }
+
+    .card .cta {
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--accent-2);
+      transition: gap .15s;
+    }
+
+    .card .cta:hover { gap: .6rem; text-decoration: none; }
+
+    /* highlight card (brag doc) */
+    .card.card--featured {
+      background: linear-gradient(135deg, #0e3558 0%, #0b2840 100%);
+      border-color: var(--accent);
+    }
+
+    /* ── Timeline teaser ──────────────────────────────────────── */
+    .timeline-teaser {
+      padding: 3rem 1.5rem;
+      background: var(--bg-card-alt);
+    }
+
+    .timeline-list {
+      max-width: 700px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+
+    .timeline-list::before {
+      content: '';
+      position: absolute;
+      left: 1rem;
+      top: .5rem;
+      bottom: .5rem;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 2.5rem 1fr;
+      gap: .75rem;
+      align-items: start;
+      padding: 1rem 0;
+    }
+
+    .timeline-dot {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .75rem;
+      color: #fff;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .timeline-content strong {
+      display: block;
+      font-size: .98rem;
+      color: var(--text);
+    }
+
+    .timeline-content span {
+      font-size: .85rem;
+      color: var(--text-muted);
+    }
+
+    .see-more {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    .see-more a {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      padding: .6rem 1.6rem;
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      color: var(--text);
+      font-weight: 700;
+      font-size: .9rem;
+      transition: background .2s, transform .15s;
+    }
+
+    .see-more a:hover {
+      background: rgba(2,136,209,0.2);
+      transform: translateY(-2px);
+      text-decoration: none;
+    }
+
+    /* ── Presentation CTA ─────────────────────────────────────── */
+    .pres-cta {
+      padding: 4rem 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pres-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('images/bg.jpg') center/cover no-repeat;
+      opacity: .12;
+    }
+
+    .pres-cta > * { position: relative; z-index: 1; }
+
+    .pres-cta h2 {
+      font-size: clamp(1.3rem, 4vw, 2rem);
+      font-weight: 900;
+      margin-bottom: 1rem;
+    }
+
+    .pres-cta p {
+      max-width: 520px;
+      margin: 0 auto 2rem;
+      color: var(--text-muted);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .85rem 2.2rem;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 18px rgba(2,136,209,0.4);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(2,136,209,0.5);
+      text-decoration: none;
+    }
+
+    /* ── Footer ───────────────────────────────────────────────── */
+    footer {
+      padding: 1.5rem;
+      text-align: center;
+      font-size: .82rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+    }
+
+    footer i { color: var(--accent-2); }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════ HERO ══════════ -->
+  <header class="hero">
+    <div class="hero-inner container">
+
+      <div class="hero-identity">
+        <img class="avatar" src="images/me.png" alt="Photo de Sébastien Degodez" />
+        <div class="hero-text">
+          <h1>DEGODEZ Sébastien</h1>
+          <p class="role">Software Engineer</p>
+          <p class="company">
+            <i class="fa-regular fa-building"></i>&nbsp;AXA — France
+          </p>
+        </div>
+      </div>
+
+      <nav class="social-links" aria-label="Réseaux sociaux">
+        <a href="https://www.linkedin.com/in/sebastien-degodez" target="_blank" rel="noopener">
+          <i class="fa-brands fa-linkedin"></i> LinkedIn
+        </a>
+        <a href="https://github.com/SebastienDegodez" target="_blank" rel="noopener">
+          <i class="fa-brands fa-github"></i> GitHub
+        </a>
+        <a href="https://twitter.com/seb2goxdev" target="_blank" rel="noopener">
+          <i class="fa-brands fa-x-twitter"></i> Twitter
+        </a>
+        <a href="presentation/index.html" aria-label="Voir la présentation Marp (slides interactives)">
+          <i class="fa-regular fa-file-powerpoint" aria-hidden="true"></i> Voir la présentation
+        </a>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════ PITCH ═════════ -->
+  <section class="pitch" aria-label="À propos">
+    <div class="container">
+      <blockquote>
+        J'aide les équipes à <strong>scaler</strong>, construis des
+        <strong>architectures résilientes</strong> et partage mes
+        apprentissages avec la communauté — en open source, en meetup
+        et au fil des projets.
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ HIGHLIGHTS ════ -->
+  <section class="highlights" aria-label="Points clés">
+    <div class="container">
+      <h2 class="section-title">Explorez mon profil</h2>
+
+      <div class="bento">
+
+        <!-- Poste actuel -->
+        <div class="card">
+          <div class="card-icon">🏢</div>
+          <h3>Poste actuel</h3>
+          <p>Software Engineer chez <strong>AXA</strong></p>
+          <ul>
+            <li>Architecture &amp; bonnes pratiques</li>
+            <li>Accompagnement des équipes</li>
+            <li>15+ années d'expérience</li>
+          </ul>
+          <a class="cta" href="#parcours">
+            Voir mon parcours <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <!-- Brag Document (featured) -->
+        <div class="card card--featured">
+          <div class="card-icon">🏆</div>
+          <h3>Brag Document</h3>
+          <p>Mes impacts concrets, projets majeurs &amp; réalisations :</p>
+          <ul>
+            <li>Migrations &amp; refontes d'architecture</li>
+            <li>Design systems &amp; DevEx</li>
+            <li>Mentoring &amp; "glue work"</li>
+          </ul>
+          <a class="cta" href="brag.html">
+            Lire mon Brag Document <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <!-- Open Source -->
+        <div class="card">
+          <div class="card-icon">💻</div>
+          <h3>Open Source</h3>
+          <p>Projets créés et contributions :</p>
+          <ul>
+            <li>slide-marp — template de présentation Marp</li>
+            <li>Contributions diverses sur GitHub</li>
+          </ul>
+          <a class="cta" href="https://github.com/SebastienDegodez" target="_blank" rel="noopener">
+            Voir mes projets <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <!-- Speaker -->
+        <div class="card">
+          <div class="card-icon">🎤</div>
+          <h3>Speaker &amp; Communauté</h3>
+          <p>Conférences, meetups &amp; partage de connaissance :</p>
+          <ul>
+            <li>Talks techniques lors de meetups</li>
+            <li>Présentations en entreprise</li>
+          </ul>
+          <a class="cta" href="#talks">
+            Voir les talks <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ PARCOURS ══════ -->
+  <section class="timeline-teaser" id="parcours" aria-label="Parcours">
+    <div class="container">
+      <h2 class="section-title">Parcours (sélection)</h2>
+
+      <ol class="timeline-list" role="list">
+
+        <li class="timeline-item">
+          <div class="timeline-dot" aria-hidden="true">
+            <i class="fa-solid fa-briefcase"></i>
+          </div>
+          <div class="timeline-content">
+            <strong>Software Engineer — AXA</strong>
+            <span>Poste actuel · France</span>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <div class="timeline-dot" aria-hidden="true">
+            <i class="fa-solid fa-code"></i>
+          </div>
+          <div class="timeline-content">
+            <strong>Développement &amp; Architecture logicielle</strong>
+            <span>15+ années d'expérience en .NET / Cloud / DevOps</span>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <div class="timeline-dot" aria-hidden="true">
+            <i class="fa-solid fa-users"></i>
+          </div>
+          <div class="timeline-content">
+            <strong>Mentoring &amp; accompagnement d'équipes</strong>
+            <span>Animation d'ateliers, montée en compétences</span>
+          </div>
+        </li>
+
+      </ol>
+
+      <div class="see-more">
+        <a href="https://www.linkedin.com/in/sebastien-degodez" target="_blank" rel="noopener">
+          <i class="fa-brands fa-linkedin"></i> Parcours complet sur LinkedIn
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ TALKS ═════════ -->
+  <section class="highlights" id="talks" aria-label="Conférences et meetups">
+    <div class="container">
+      <h2 class="section-title">Conférences &amp; Meetups</h2>
+
+      <div class="bento">
+        <div class="card" style="grid-column: 1 / -1;">
+          <div class="card-icon">🎤</div>
+          <h3>Prochainement</h3>
+          <p style="color: var(--text-muted);">
+            Cette section accueillera bientôt les replays, slides et résumés
+            de mes interventions lors de meetups et conférences.
+          </p>
+          <a class="cta" href="https://github.com/SebastienDegodez" target="_blank" rel="noopener">
+            Retrouvez mes slides sur GitHub <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ PRESENTATION CTA -->
+  <section class="pres-cta" aria-label="Présentation Marp">
+    <h2>Ma présentation Marp</h2>
+    <p>
+      Découvrez les slides interactives générées depuis ce dépôt avec
+      <strong>Marp</strong> — en HTML, PDF et PPTX.
+    </p>
+    <a class="btn-primary" href="presentation/index.html" aria-label="Voir la présentation Marp (slides interactives)">
+      <i class="fa-regular fa-file-powerpoint" aria-hidden="true"></i>
+      Voir la présentation
+    </a>
+  </section>
+
+  <!-- ═══════════════════════════════════════ FOOTER ════════ -->
+  <footer>
+    <p>
+      Fait avec <i class="fa-solid fa-heart"></i> et
+      <a href="https://marp.app/" target="_blank" rel="noopener">Marp</a>
+      · DEGODEZ Sébastien ·
+      <a href="https://github.com/SebastienDegodez/slide-marp" target="_blank" rel="noopener">
+        <i class="fa-brands fa-github"></i> slide-marp
+      </a>
+    </p>
+  </footer>
+
+</body>
+</html>
